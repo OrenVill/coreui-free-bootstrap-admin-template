@@ -343,3 +343,17 @@ const mainChart = new Chart(document.getElementById('main-chart'), {
     }
   }
 })
+
+
+let devices_table_body = document.getElementById("table_of_devices").getElementsByTagName('tbody')[0]
+let row1 = devices_table_body.insertRow(0)
+let cell1row1 = row1.insertCell(0)
+let cell2row1 = row1.insertCell(1)
+let cell3row1 = row1.insertCell(2)
+let cell4row1 = row1.insertCell(3)
+cell1row1.innerHTML = "kgtui"
+cell2row1.innerHTML = "buih"
+cell3row1.innerHTML = "gbhujk"
+cell4row1.innerHTML = "kgtuertyu"
+
+

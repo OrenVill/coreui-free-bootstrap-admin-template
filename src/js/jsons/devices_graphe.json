@@ -1,0 +1,11 @@
+{
+    "total": 6,
+    "devices": [
+        {"dev_name": "Oren's-Lap", "dev_type": "computer"},
+        {"dev_name": "Gal's-TV", "dev_type": "television"},
+        {"dev_name": "AWS-Server", "dev_type": "server"},
+        {"dev_name": "Noa's-LAP", "dev_type": "computer"},
+        {"dev_name": "Azure-Server", "dev_type": "server"},
+        {"dev_name": "Ifat's-LAP", "dev_type": "computer"}
+    ]
+}

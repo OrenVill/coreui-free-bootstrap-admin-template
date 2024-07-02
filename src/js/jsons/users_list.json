@@ -1,0 +1,32 @@
+[
+    {
+        "device": "Oren-LAP",
+        "state": "Switzerland",
+        "dev_type": "computer",
+        "last_login": "2h ago   "
+    },
+    {
+        "device": "Dino's phone",
+        "state": "Venzuela",
+        "dev_type": "smartphone",
+        "last_login": "5min ago"
+    },
+    {
+        "device": "Noa-LAP",
+        "state": "Israel",
+        "dev_type": "computer",
+        "last_login": "2d ago"
+    },
+    {
+        "device": "Swisscom-Router",
+        "state": "Switzerland",
+        "dev_type": "router",
+        "last_login": "10sec ago"
+    },
+    {
+        "device": "ifat's phone",
+        "state": "USA",
+        "dev_type": "phone",
+        "last_login": "5min ago"
+    }
+]

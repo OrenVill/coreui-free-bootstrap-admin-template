@@ -1,3 +1,93 @@
+var getJSON = function(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.responseType = 'json';
+  xhr.onload = function() {
+  var status = xhr.status;
+  if (status === 200) {
+      callback(null, xhr.response);
+  } else {
+      callback(status, xhr.response);
+  }
+  };
+  xhr.send();
+};
+
+let RateFloatsList = []
+
+function UpdateBtcChart(){
+  getJSON('https://api.coindesk.com/v1/bpi/currentprice.json',
+    function(err, data) {
+      if (err !== null) {
+          console.log("Errrrrror")
+      } else {
+          RateFloatsList = [
+            data.bpi.USD.rate_float,
+            data.bpi.GBP.rate_float,
+            data.bpi.EUR.rate_float
+          ]
+          barChart.data.datasets[0].data = RateFloatsList
+          barChart.update()
+      }
+    });  
+}
+
+UpdateBtcChart()
+
+
+let computers = 0
+let televisions = 0
+let servers = 0
+
+
+function UpdateDevicesSummury(){
+  getJSON('http://localhost:3000/src/js/jsons/devices_graphe.json',
+    function(err, data) {
+      if (err !== null) {
+          console.log("Errrrrror")
+      } else {
+        computers = 0
+        televisions = 0
+        servers = 0
+        console.log(data.devices)
+        data.devices.forEach(device => {
+          switch (device.dev_type) {
+            case "computer":
+              computers += 1
+              break
+            case "television":
+              televisions += 1
+              break
+            case "server":
+              servers += 1
+              break
+          }
+
+          doughnutChart.data.datasets[0].data = [computers, televisions, servers]
+          doughnutChart.update()
+        });
+      }
+    });    
+}
+
+UpdateDevicesSummury()
+
+var intervalId = window.setInterval(UpdateBtcChart(), 5000);
+
+
+
+
+ 
+
+var DevicesIntervalId = window.setInterval(UpdateDevicesSummury(), 5000);
+
+console.log(computers, televisions, servers)
+
+
+
+
+
+
 /* global Chart */
 
 /**
@@ -43,22 +133,21 @@ const lineChart = new Chart(document.getElementById('canvas-1'), {
 const barChart = new Chart(document.getElementById('canvas-2'), {
   type: 'bar',
   data: {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['January', 'February', 'March'],
     datasets: [
       {
         backgroundColor: 'rgba(220, 220, 220, 0.5)',
         borderColor: 'rgba(220, 220, 220, 0.8)',
         highlightFill: 'rgba(220, 220, 220, 0.75)',
         highlightStroke: 'rgba(220, 220, 220, 1)',
-        data: [random(), random(), random(), random(), random(), random(), random()]
-      },
-      {
-        backgroundColor: 'rgba(151, 187, 205, 0.5)',
-        borderColor: 'rgba(151, 187, 205, 0.8)',
-        highlightFill: 'rgba(151, 187, 205, 0.75)',
-        highlightStroke: 'rgba(151, 187, 205, 1)',
-        data: [random(), random(), random(), random(), random(), random(), random()]
+        data: RateFloatsList
       }
+      // {
+      //   backgroundColor: 'rgba(151, 187, 205, 0.5)',
+      //   borderColor: 'rgba(151, 187, 205, 0.8)',
+      //   highlightFill: 'rgba(151, 187, 205, 0.75)',
+      //   highlightStroke: 'rgba(151, 187, 205, 1)',
+      //   data: [random(), random(), random(), random(), random(), random(), random()]
     ]
   },
   options: {
@@ -70,15 +159,18 @@ const barChart = new Chart(document.getElementById('canvas-2'), {
 const doughnutChart = new Chart(document.getElementById('canvas-3'), {
   type: 'doughnut',
   data: {
-    labels: ['Red', 'Green', 'Yellow'],
+    labels: ['computers', 'televisions', 'servsrs',],
     datasets: [{
-      data: [300, 50, 100],
+      data: [computers, televisions, servers],
       backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
       hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
     }]
   },
   options: {
-    responsive: true
+    responsive: true,
+    title: {
+      display: true,
+   }
   }
 })
 
@@ -106,7 +198,7 @@ const radarChart = new Chart(document.getElementById('canvas-4'), {
         pointBorderColor: '#fff',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(151, 187, 205, 1)',
-        data: [28, 48, 40, 19, 96, 27, 100]
+        data: [28, 48, 40, 19, 96, 78, 34]
       }
     ]
   },
